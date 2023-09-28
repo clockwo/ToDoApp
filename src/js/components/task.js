@@ -1,10 +1,8 @@
 export default class Task {
-  constructor(name, description) {
-    this.name = name;
+  constructor(description) {
     this.description = description;
+    this.isDone = false;
   }
 
-  getData = () => {
-    return [this.name, this.description];
-  };
+  getDescription = () => this.description;
 }

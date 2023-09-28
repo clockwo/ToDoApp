@@ -1,15 +1,11 @@
-export const createTaskElement = ( taskData ) => {
-  const [name, description] = taskData;
-
+export const createTaskElement = (description) => {
   const taskElement = document.createElement('div');
+  taskElement.classList.add('task')
 
-  const nameElement = document.createElement("h2");
-  nameElement.textContent = name;
-
-  const descElement = document.createElement("p");
-  descElement.textContent = description;
-
-  [nameElement, descElement].forEach((element) => taskElement.appendChild(element));
+  taskElement.innerHTML = `
+    <input class="task-box" type="checkbox" name="task" id="task">
+    <p class="task-text">${description}</p>
+  `;
 
   return taskElement;
 }

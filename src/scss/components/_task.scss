@@ -1,0 +1,13 @@
+.task {
+  display: flex;
+  gap: 0.5em;
+
+
+  &-box {
+    margin: 0;
+  }
+
+  &-text {
+    font-size: 18px;
+  }
+}

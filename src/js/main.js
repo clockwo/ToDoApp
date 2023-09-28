@@ -1,11 +1,28 @@
 import "../scss/main.scss";
+import { domElements } from "./components/selectors.js";
+import { Container } from "./components/container.js";
 
-import Task from "./components/task.js";
-import {createTaskElement} from "./components/render.js";
+const mainElement = domElements.mainElement;
+const addButtonElement = domElements.addTaskButtonElement;
 
-const content = document.querySelector("[data-js-tasks]");
+const containerState = {
+  state: "index",
+  containers: {
+    index: new Container("index"),
+  },
+};
 
-const task = new Task("buy", "buy something tonight");
+// Button
 
+addButtonElement.addEventListener("click", () => {
+  const containerElement = domElements.containerElement;
+  containerState.containers[containerElement.dataset.container].addTask(
+    "test55",
+  );
+});
 
-content.appendChild(createTaskElement(task.getData()));
+mainElement.appendChild(
+  containerState.containers[containerState.state].initDisplayElement(),
+);
+
+// const initPage = (container) => {};
