@@ -4,3 +4,8 @@ body {
   background-color: var(--background-color);
   color: var(--text-color);
 }
+
+.wrapper {
+  width: min(calc(100vw - 32px), 1200px);
+  margin-inline: auto;
+}

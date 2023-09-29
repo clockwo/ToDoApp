@@ -1,6 +1,7 @@
 import "../scss/main.scss";
 import { domElements } from "./components/selectors.js";
 import { Container } from "./components/container.js";
+import { initIndexPage } from "./pages/index.js";
 
 const mainElement = domElements.mainElement;
 const addButtonElement = domElements.addTaskButtonElement;
@@ -21,8 +22,10 @@ addButtonElement.addEventListener("click", () => {
   );
 });
 
-mainElement.appendChild(
-  containerState.containers[containerState.state].initDisplayElement(),
-);
+mainElement.appendChild(initIndexPage());
+
+// mainElement.appendChild(
+//   containerState.containers[containerState.state].initDisplayElement(),
+// );
 
 // const initPage = (container) => {};

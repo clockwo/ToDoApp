@@ -1,0 +1,22 @@
+@use '../utilities';
+
+.window {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-inline: 1em;
+  border-radius: 25px;
+  background-color: var(--secondary-color);
+}
+
+.win-button {
+  padding-block: .3em;
+  width: 100%;
+  font-size: 25px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.win-button:last-child {
+  border-bottom: none;
+}
+
