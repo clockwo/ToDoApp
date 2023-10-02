@@ -10,6 +10,7 @@ export class Container {
 
   initDisplayElement = () => {
     this.section.setAttribute("data-container", this._name);
+    this.section.classList.add("wrapper");
 
     this.section.innerHTML = `
         <h1>${this._name}</h1>

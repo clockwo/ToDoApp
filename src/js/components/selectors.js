@@ -2,6 +2,7 @@ const selectors = {
   main: "[data-js-main]",
   container: "[data-container]",
   addTaskButton: "[data-js-add-task-button]",
+  nav: "[data-js-nav]",
 };
 
 export const domElements = {
@@ -15,5 +16,9 @@ export const domElements = {
 
   get containerElement() {
     return document.querySelector(selectors.container);
+  },
+
+  get navElement() {
+    return document.querySelector(selectors.nav);
   },
 };
