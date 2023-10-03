@@ -1,7 +1,7 @@
 import "../scss/main.scss";
 import { domElements } from "./components/selectors.js";
 import { Container } from "./components/container.js";
-import { initIndexPage } from "./pages/index.js";
+import { initIndexPage, initProjects } from "./pages/index.js";
 
 class App {
   constructor() {
@@ -10,6 +10,10 @@ class App {
       isActive: false,
       containers: {
         inbox: new Container("inbox"),
+        today: new Container("today"),
+        upcoming: new Container("upcoming"),
+        projects: new Container("projects"),
+        // Add as many containers as needed
       },
     };
   }
@@ -85,6 +89,8 @@ class App {
   //Initialization
   initDefaultPage = ({ mainElement } = this.domElements) => {
     mainElement.appendChild(initIndexPage());
+    // initProjects(this.containerState.containers);
+    mainElement.appendChild(initProjects(this.containerState.containers));
   };
 
   init = () => {
