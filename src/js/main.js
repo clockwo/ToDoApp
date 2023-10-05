@@ -21,9 +21,12 @@ class App {
   // Private functions
   updateNavigation = (containerName) => {
     const { navElement } = this.domElements;
+
+    navElement.replaceChildren();
+
     const h1 = document.createElement("h1");
     h1.textContent = containerName;
-    h1.classList.add("test");
+    h1.classList.add("nav-title");
     const returnButton = document.createElement("button");
 
     returnButton.textContent = "<";
@@ -80,7 +83,13 @@ class App {
   };
 
   addTaskButtonElementClickHandler = () => {
-    const { containerElement } = domElements;
+    const { containerElement, menuElement } = domElements;
+    // Show modal
+    menuElement.showModal();
+    // Get data from modal when click submit
+    // Hide add button while inside modal
+    // If user click on blur area - close modal
+    //  require only name of task
     this.containerState.containers[containerElement.dataset.container].addTask(
       "test55",
     );

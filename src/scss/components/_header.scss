@@ -7,7 +7,13 @@
 
 .nav {
   display: flex;
+  min-height: 65px;
   align-items: center;
+
+  &-title {
+    padding-top: .3em;
+    text-transform: capitalize;
+  }
 }
 
 .logo {

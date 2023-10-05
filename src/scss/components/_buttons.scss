@@ -13,3 +13,11 @@
   background-color: var(--accent-color);
   color: var(--text-color);
 }
+
+.return-button {
+  font-size: 2.5rem;
+  padding: 0 .5em 0 0;
+  background-color: transparent;
+  color: var(--text-color);
+  border: none;
+}

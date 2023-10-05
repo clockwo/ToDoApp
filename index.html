@@ -20,6 +20,16 @@
 
 </main>
 
+<dialog data-js-menu class="menu wrapper">
+    <form class="menu-form" method="dialog">
+        <label for="task-text"></label>
+        <input autofocus data-js-input type="text" name="task-text"
+               id="task-text"
+               placeholder="e.g., Pastries for brunch on Saturday" required>
+        <button type="submit">OK</button>
+    </form>
+</dialog>
+
 <button class="add-task-button" data-js-add-task-button type="button">X</button>
 
 <script type="module" src="./src/js/main.js"></script>
