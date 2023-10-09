@@ -83,15 +83,19 @@ class App {
   };
 
   addTaskButtonElementClickHandler = () => {
-    const { containerElement, menuElement } = domElements;
+    const { menuElement } = domElements;
     // Show modal
     menuElement.showModal();
     // Get data from modal when click submit
     // Hide add button while inside modal
     // If user click on blur area - close modal
     //  require only name of task
+  };
+
+  submitTaskButtonElementClickHandler = () => {
+    const { taskNameElement, containerElement } = this.domElements;
     this.containerState.containers[containerElement.dataset.container].addTask(
-      "test55",
+      taskNameElement.value,
     );
   };
 
@@ -103,12 +107,17 @@ class App {
   };
 
   init = () => {
-    const { mainElement, addTaskButtonElement } = this.domElements;
+    const { mainElement, addTaskButtonElement, submitTaskButtonElement } =
+      this.domElements;
 
     mainElement.addEventListener("click", this.mainElementClickHandler);
     addTaskButtonElement.addEventListener(
       "click",
       this.addTaskButtonElementClickHandler,
+    );
+    submitTaskButtonElement.addEventListener(
+      "click",
+      this.submitTaskButtonElementClickHandler,
     );
 
     this.initDefaultPage();
