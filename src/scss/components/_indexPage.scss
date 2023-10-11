@@ -12,7 +12,7 @@
 }
 
 .win-button {
-  padding-block: .3em;
+  padding-block: 0.3em;
   width: 100%;
   font-size: 25px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -33,14 +33,15 @@
     gap: 1.5em;
     margin-left: auto;
 
-
     button {
-      font-size: 30px;
-      padding: 0;
-      color: rgba(255, 255, 255, 0.9);
       background-color: transparent;
       border: none;
     }
+    button svg {
+      width: 25px;
+      height: 25px;
+      pointer-events: none;
+      color: rgba(255, 255, 255, 0.9);
+    }
   }
-
 }
