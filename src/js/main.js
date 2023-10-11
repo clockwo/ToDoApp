@@ -1,7 +1,7 @@
-import "../scss/main.scss";
-import { domElements } from "./components/selectors.js";
-import { Container } from "./components/container.js";
-import { initIndexPage, initProjects } from "./pages/index.js";
+import '../scss/main.scss';
+import domElements from './components/selectors';
+import Container from './components/container';
+import { initIndexPage, initProjects } from './pages/index';
 
 class App {
   constructor() {
@@ -9,10 +9,10 @@ class App {
     this.containerState = {
       isActive: false,
       containers: {
-        inbox: new Container("inbox"),
-        today: new Container("today"),
-        upcoming: new Container("upcoming"),
-        projects: new Container("projects"),
+        inbox: new Container('inbox'),
+        today: new Container('today'),
+        upcoming: new Container('upcoming'),
+        projects: new Container('projects'),
         // Add as many containers as needed
       },
     };
@@ -24,16 +24,16 @@ class App {
 
     navElement.replaceChildren();
 
-    const h1 = document.createElement("h1");
+    const h1 = document.createElement('h1');
     h1.textContent = containerName;
-    h1.classList.add("nav-title");
-    const returnButton = document.createElement("button");
+    h1.classList.add('nav-title');
+    const returnButton = document.createElement('button');
 
-    returnButton.textContent = "<";
-    returnButton.setAttribute("data-rtb", "");
-    returnButton.classList.add("return-button");
+    returnButton.textContent = '<';
+    returnButton.setAttribute('data-rtb', '');
+    returnButton.classList.add('return-button');
 
-    returnButton.addEventListener("click", this.returnButtonClickHandler);
+    returnButton.addEventListener('click', this.returnButtonClickHandler);
     navElement.appendChild(returnButton);
     navElement.appendChild(h1);
   };
@@ -46,13 +46,18 @@ class App {
     this.containerState.isActive = false;
   };
 
+  addContainer = (name) => {
+    this.containerState.containers[`${name}`] = new Container(name);
+    console.log(this.containerState.containers);
+  };
+
   clearMainElement = ({ mainElement } = this.domElements) => {
     mainElement.replaceChildren();
   };
 
   clearNavigationElement = ({ navElement } = this.domElements) => {
     const defaultLogo = new Image(65, 65);
-    defaultLogo.src = "./images/logo.png";
+    defaultLogo.src = './images/logo.png';
 
     navElement.replaceChildren(defaultLogo);
   };
@@ -60,67 +65,101 @@ class App {
   loadContainer = (dataValue) => {
     const { mainElement } = this.domElements;
     mainElement.appendChild(
-      this.containerState.containers[dataValue].initDisplayElement(),
+      this.containerState.containers[dataValue].initDisplayElement()
     );
     this.updateNavigation(dataValue);
   };
 
-  // Buttons events
-
-  returnButtonClickHandler = () => {
+  resetAll = () => {
     this.clearMainElement();
     this.setContainerInactive();
     this.initDefaultPage();
     this.clearNavigationElement();
   };
+
+  // Buttons events
+
+  returnButtonClickHandler = () => {
+    this.resetAll();
+  };
+
   mainElementClickHandler = ({ target }) => {
-    if (!target.matches("[data-container]") || this.containerState.isActive)
-      return;
     const dataValue = target.dataset.container;
     this.setContainerActive();
     this.clearMainElement();
     this.loadContainer(dataValue);
   };
 
-  addTaskButtonElementClickHandler = () => {
+  handleAddTaskClick = () => {
     const { menuElement } = domElements;
-    // Show modal
     menuElement.showModal();
-    // Get data from modal when click submit
-    // Hide add button while inside modal
-    // If user click on blur area - close modal
-    //  require only name of task
+    menuElement.addEventListener('click', this.handleBackdropClick);
   };
 
-  submitTaskButtonElementClickHandler = () => {
+  handleBackdropClick = (event) => {
+    const { menuElement } = this.domElements;
+    const dialogDimensions = menuElement.getBoundingClientRect();
+
+    if (
+      event.clientX < dialogDimensions.left ||
+      event.clientX > dialogDimensions.right ||
+      event.clientY < dialogDimensions.top ||
+      event.clientY > dialogDimensions.bottom
+    ) {
+      menuElement.close();
+    }
+  };
+
+  handleSubmitTaskClick = () => {
     const { taskNameElement, containerElement } = this.domElements;
     this.containerState.containers[containerElement.dataset.container].addTask(
-      taskNameElement.value,
+      taskNameElement.value
     );
   };
 
-  //Initialization
+  // TODO: Add handler for AddProjectClick
+  handleProjectAddClick = () => {
+    const data = new Date();
+    this.addContainer(`hello${data.getSeconds()}`);
+    this.resetAll();
+  };
+
+  // TODO: Add handler for HideProjectClick
+
+  // TODO:
+
+  // Initialization
   initDefaultPage = ({ mainElement } = this.domElements) => {
     mainElement.appendChild(initIndexPage());
-    // initProjects(this.containerState.containers);
     mainElement.appendChild(initProjects(this.containerState.containers));
   };
 
   init = () => {
+    this.initDefaultPage();
+
     const { mainElement, addTaskButtonElement, submitTaskButtonElement } =
       this.domElements;
 
-    mainElement.addEventListener("click", this.mainElementClickHandler);
-    addTaskButtonElement.addEventListener(
-      "click",
-      this.addTaskButtonElementClickHandler,
-    );
-    submitTaskButtonElement.addEventListener(
-      "click",
-      this.submitTaskButtonElementClickHandler,
-    );
+    mainElement.addEventListener('click', (event) => {
+      if (
+        event.target.matches('[data-container]') &&
+        !this.containerState.isActive
+      ) {
+        this.mainElementClickHandler(event);
+      } else if (event.target.matches('[data-js-projects-button-add]')) {
+        this.handleProjectAddClick();
+      } else if (event.target.matches('[data-js-projects-button-hide]')) {
+        console.log(1);
+      }
+    });
 
-    this.initDefaultPage();
+    // TODO: Make event delegation better here
+
+    addTaskButtonElement.addEventListener('click', this.handleAddTaskClick);
+    submitTaskButtonElement.addEventListener(
+      'click',
+      this.handleSubmitTaskClick
+    );
   };
 }
 

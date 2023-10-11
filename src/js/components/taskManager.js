@@ -1,12 +1,12 @@
-import Task from "./task.js";
+import Task from './task';
 
-export class TaskManager {
+export default class TaskManager {
   constructor() {
-    this._tasks = [
-      new Task("test"),
-      new Task("test2"),
-      new Task("test3"),
-      new Task("test4"),
+    this.tasks = [
+      new Task('test'),
+      new Task('test2'),
+      new Task('test3'),
+      new Task('test4'),
     ];
   }
 
@@ -14,12 +14,17 @@ export class TaskManager {
     if (!description) return;
 
     const task = new Task(description);
-    this._tasks.push(task);
-    
-    return task;
+    this.tasks.push(task);
+  }
+
+  getLatestAddedTask() {
+    const [lastElement] = this.tasks.slice(-1);
+    return lastElement;
   }
 
   getTasks() {
-    return this._tasks;
+    return this.tasks;
   }
+
+  // TODO: Add remove task handler
 }

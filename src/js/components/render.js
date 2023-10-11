@@ -1,6 +1,6 @@
-export const createTaskElement = (description) => {
+const createTaskElement = (description) => {
   const taskElement = document.createElement('div');
-  taskElement.classList.add('task')
+  taskElement.classList.add('task');
 
   taskElement.innerHTML = `
     <input class="task-box" type="checkbox" name="task" id="task">
@@ -8,4 +8,6 @@ export const createTaskElement = (description) => {
   `;
 
   return taskElement;
-}
+};
+
+export default createTaskElement;

@@ -1,34 +1,38 @@
-import { createTaskElement } from "./render.js";
-import { TaskManager } from "./taskManager.js";
+import createTaskElement from './render';
+import TaskManager from './taskManager';
 
-export class Container {
+export default class Container {
   constructor(name) {
-    this._name = name;
-    this.section = document.createElement("section");
+    this.name = name;
+    this.section = document.createElement('section');
     this.taskManager = new TaskManager();
   }
 
   initDisplayElement = () => {
-    this.section.setAttribute("data-container", this._name);
-    this.section.classList.add("wrapper");
+    this.section.setAttribute('data-container', this.name);
+    this.section.classList.add('wrapper');
 
     this.section.innerHTML = `
-        <h1>${this._name}</h1>
+        <h1>${this.name}</h1>
     `;
 
     this.taskManager
       .getTasks()
       .forEach((task) =>
-        this.section.appendChild(createTaskElement(task.getDescription())),
+        this.section.appendChild(createTaskElement(task.getDescription()))
       );
 
     return this.section;
   };
 
   addTask = (description) => {
-    const task = this.taskManager.addTask(description);
+    this.taskManager.addTask(description);
+    const task = this.taskManager.getLatestAddedTask();
 
+    console.log(task);
     // html part
     this.section.appendChild(createTaskElement(task.getDescription()));
   };
+
+  // TODO: Add button what shows or hide completed tasks
 }

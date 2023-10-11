@@ -1,14 +1,14 @@
 const selectors = {
-  main: "[data-js-main]",
-  container: "[data-container]",
-  addTaskButton: "[data-js-add-task-button]",
-  nav: "[data-js-nav]",
-  menu: "[data-js-menu]",
-  taskName: "[data-js-task-name]",
-  submitTaskButton: "[data-submit-task]",
+  main: '[data-js-main]',
+  container: '[data-container]',
+  addTaskButton: '[data-js-add-task-button]',
+  nav: '[data-js-nav]',
+  menu: '[data-js-menu]',
+  taskName: '[data-js-task-name]',
+  submitTaskButton: '[data-submit-task]',
 };
 
-export const domElements = {
+const domElements = {
   get mainElement() {
     return document.querySelector(selectors.main);
   },
@@ -37,3 +37,5 @@ export const domElements = {
     return document.querySelector(selectors.submitTaskButton);
   },
 };
+
+export default domElements;
