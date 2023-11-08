@@ -26,5 +26,13 @@ export default class TaskManager {
     return this.tasks;
   }
 
+  makeDone(index) {
+    if (!this.tasks[index].isNotDone) {
+      this.tasks[index].markAsDone();
+    } else {
+      this.tasks[index].markAsNotDone();
+    }
+  }
+
   // TODO: Add remove task handler
 }

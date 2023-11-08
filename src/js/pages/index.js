@@ -27,7 +27,7 @@ export const initProjects = (projects) => {
                   <line x1="0" y1="50" x2="100" y2="50" stroke="currentColor" stroke-width="10"/>
               </svg>
             </button>
-            <button class="projects-button-hide" data-js-projects-button-hide type="button">
+            <button class="projects-button-hide rotate" data-js-projects-button-hide type="button">
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M4 6L12 18L20 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>

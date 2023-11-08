@@ -19,7 +19,9 @@ export default class Container {
     this.taskManager
       .getTasks()
       .forEach((task) =>
-        this.section.appendChild(createTaskElement(task.getDescription()))
+        this.section.appendChild(
+          createTaskElement(task.getDescription(), task.getIsNotDone())
+        )
       );
 
     return this.section;
@@ -33,6 +35,10 @@ export default class Container {
     // html part
     this.section.appendChild(createTaskElement(task.getDescription()));
   };
+
+  makeDone(index) {
+    this.taskManager.makeDone(index);
+  }
 
   // TODO: Add button what shows or hide completed tasks
 }

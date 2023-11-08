@@ -125,8 +125,14 @@ class App {
   };
 
   // TODO: Add handler for HideProjectClick
-
-  // TODO:
+  // eslint-disable-next-line class-methods-use-this
+  handleProjectHideClick = ({ target }) => {
+    if (target.classList.contains('down')) {
+      target.classList.remove('down');
+    } else {
+      target.classList.add('down');
+    }
+  };
 
   // Initialization
   initDefaultPage = ({ mainElement } = this.domElements) => {
@@ -149,7 +155,25 @@ class App {
       } else if (event.target.matches('[data-js-projects-button-add]')) {
         this.handleProjectAddClick();
       } else if (event.target.matches('[data-js-projects-button-hide]')) {
-        console.log(1);
+        this.handleProjectHideClick(event);
+      } else if (event.target.type === 'checkbox') {
+        const parentDiv = event.target.closest('div');
+        const section = parentDiv.closest('section');
+        const tasksArray = Array.from(section.querySelectorAll('div'));
+        const position = tasksArray.indexOf(parentDiv);
+        console.log(position);
+        const textToCross = parentDiv.querySelector('.task-text');
+        if (event.target.checked) {
+          textToCross.classList.add('cross');
+          this.containerState.containers[section.dataset.container].makeDone(
+            position
+          );
+        } else {
+          textToCross.classList.remove('cross');
+          this.containerState.containers[section.dataset.container].makeDone(
+            position
+          );
+        }
       }
     });
 
