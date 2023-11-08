@@ -134,6 +134,25 @@ class App {
     }
   };
 
+  handleCheckboxToggle(checkbox) {
+    const taskElement = checkbox.closest('.task');
+    const section = taskElement.closest('section');
+    const taskIndex = this.getTaskIndex(section, taskElement);
+    const textElement = taskElement.querySelector('.task-text');
+    this.toggleTaskDoneState(textElement, taskIndex, section);
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  getTaskIndex = (section, taskElement) =>
+    Array.from(section.querySelectorAll('.task')).indexOf(taskElement);
+
+  toggleTaskDoneState(textElement, taskIndex, section) {
+    textElement.classList.toggle('cross');
+    this.containerState.containers[section.dataset.container].makeDone(
+      taskIndex
+    );
+  }
+
   // Initialization
   initDefaultPage = ({ mainElement } = this.domElements) => {
     mainElement.appendChild(initIndexPage());
@@ -157,23 +176,7 @@ class App {
       } else if (event.target.matches('[data-js-projects-button-hide]')) {
         this.handleProjectHideClick(event);
       } else if (event.target.type === 'checkbox') {
-        const parentDiv = event.target.closest('div');
-        const section = parentDiv.closest('section');
-        const tasksArray = Array.from(section.querySelectorAll('div'));
-        const position = tasksArray.indexOf(parentDiv);
-        console.log(position);
-        const textToCross = parentDiv.querySelector('.task-text');
-        if (event.target.checked) {
-          textToCross.classList.add('cross');
-          this.containerState.containers[section.dataset.container].makeDone(
-            position
-          );
-        } else {
-          textToCross.classList.remove('cross');
-          this.containerState.containers[section.dataset.container].makeDone(
-            position
-          );
-        }
+        this.handleCheckboxToggle(event.target);
       }
     });
 

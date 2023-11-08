@@ -31,7 +31,6 @@ export default class Container {
     this.taskManager.addTask(description);
     const task = this.taskManager.getLatestAddedTask();
 
-    console.log(task);
     // html part
     this.section.appendChild(createTaskElement(task.getDescription()));
   };
