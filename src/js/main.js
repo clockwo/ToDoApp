@@ -6,6 +6,7 @@ import { initIndexPage, initProjects } from './pages/index';
 class App {
   constructor() {
     this.domElements = domElements;
+    this.currentAction = null;
     this.containerState = {
       isActive: false,
       containers: {
@@ -90,12 +91,6 @@ class App {
     this.loadContainer(dataValue);
   };
 
-  handleAddTaskClick = () => {
-    const { menuElement } = domElements;
-    menuElement.showModal();
-    menuElement.addEventListener('click', this.handleBackdropClick);
-  };
-
   handleBackdropClick = (event) => {
     const { menuElement } = this.domElements;
     const dialogDimensions = menuElement.getBoundingClientRect();
@@ -110,18 +105,33 @@ class App {
     }
   };
 
-  handleSubmitTaskClick = () => {
-    const { taskNameElement, containerElement } = this.domElements;
-    this.containerState.containers[containerElement.dataset.container].addTask(
-      taskNameElement.value
-    );
-  };
-
   // TODO: Add handler for AddProjectClick
   handleProjectAddClick = () => {
-    const data = new Date();
-    this.addContainer(`hello${data.getSeconds()}`);
-    this.resetAll();
+    const { menuElement } = this.domElements;
+    menuElement.showModal();
+    menuElement.addEventListener('click', this.handleBackdropClick);
+    this.currentAction = 'addProject';
+  };
+
+  handleAddTaskClick = () => {
+    const { menuElement } = this.domElements;
+    menuElement.showModal();
+    menuElement.addEventListener('click', this.handleBackdropClick);
+  };
+
+  handleSubmitClick = () => {
+    const { taskNameElement, containerElement } = this.domElements;
+
+    if (this.currentAction === 'addProject') {
+      this.addContainer(taskNameElement.value);
+      this.resetAll();
+    } else {
+      this.containerState.containers[
+        containerElement.dataset.container
+      ].addTask(taskNameElement.value);
+    }
+
+    this.currentAction = null;
   };
 
   // TODO: Add handler for HideProjectClick
@@ -181,12 +191,8 @@ class App {
     });
 
     // TODO: Make event delegation better here
-
+    submitTaskButtonElement.addEventListener('click', this.handleSubmitClick);
     addTaskButtonElement.addEventListener('click', this.handleAddTaskClick);
-    submitTaskButtonElement.addEventListener(
-      'click',
-      this.handleSubmitTaskClick
-    );
   };
 }
 
