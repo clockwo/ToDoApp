@@ -41,5 +41,3 @@ export default class Container {
 
   // TODO: Add button what shows or hide completed tasks
 }
-
-// TODO!: Resolve problem with dialog. Call dialog for task and projects.

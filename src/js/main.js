@@ -105,7 +105,6 @@ class App {
     }
   };
 
-  // TODO: Add handler for AddProjectClick
   handleProjectAddClick = () => {
     const { menuElement } = this.domElements;
     menuElement.showModal();
@@ -137,11 +136,7 @@ class App {
   // TODO: Add handler for HideProjectClick
   // eslint-disable-next-line class-methods-use-this
   handleProjectHideClick = ({ target }) => {
-    if (target.classList.contains('down')) {
-      target.classList.remove('down');
-    } else {
-      target.classList.add('down');
-    }
+    target.classList.toggle('down');
   };
 
   handleCheckboxToggle(checkbox) {

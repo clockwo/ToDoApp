@@ -33,6 +33,4 @@ export default class TaskManager {
       this.tasks[index].markAsNotDone();
     }
   }
-
-  // TODO: Add remove task handler
 }
