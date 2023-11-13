@@ -37,7 +37,7 @@ export const initProjects = (projects) => {
   `;
 
   const windowElement = document.createElement('div');
-  windowElement.classList.add('window');
+  windowElement.classList.add('window', 'hideWindow');
 
   // eslint-disable-next-line no-restricted-syntax
   for (const [projectName] of Object.entries(projects)) {

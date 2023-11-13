@@ -1,5 +1,14 @@
 @use '../utilities';
 
+@keyframes fadeOut {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 100% 0);
+  }
+}
+
 .window {
   display: flex;
 
@@ -9,6 +18,10 @@
   padding-inline: 1em;
   border-radius: 25px;
   background-color: var(--secondary-color);
+}
+
+.hideWindow {
+  animation: fadeOut 3s ease infinite;
 }
 
 .win-button {
